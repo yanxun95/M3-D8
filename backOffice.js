@@ -2,6 +2,10 @@ let productObj = {}
 const eventId = new URLSearchParams(location.search).get("id")
 const endpoint = eventId ? "https://striveschool-api.herokuapp.com/api/product/" + eventId : "https://striveschool-api.herokuapp.com/api/product/"
 const method = eventId ? "PUT" : "POST"
+const headers = new Headers({
+    'Content-Type': 'application/json',
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTFjZjZiODJkNTI2MjAwMTViNmRjOTgiLCJpYXQiOjE2MjkyODgxMjAsImV4cCI6MTYzMDQ5NzcyMH0.XfRUnn6BFJPPRnEwvnQnjrk0oaXPSwwKyJlEGV6Wn9k"
+})
 const btnBackOfficeSubmit = document.querySelector(".btn.btn-primary.mt-2");
 const container = document.querySelector(".container.mt-5");
 const btnDelete = document.createElement("button");
@@ -18,10 +22,7 @@ window.onload = async () => {
         container.appendChild(btnDelete);
 
         const response = await fetch(endpoint, {
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTFjZjZiODJkNTI2MjAwMTViNmRjOTgiLCJpYXQiOjE2MjkyODgxMjAsImV4cCI6MTYzMDQ5NzcyMH0.XfRUnn6BFJPPRnEwvnQnjrk0oaXPSwwKyJlEGV6Wn9k"
-            })
+            headers
         })
         const productDetails = await response.json()
 
@@ -40,10 +41,7 @@ const sendProduct = async () => {
     let response = await fetch(endpoint, {
         method,
         body: JSON.stringify(productObj),
-        headers: new Headers({
-            'Content-Type': 'application/json',
-            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTFjZjZiODJkNTI2MjAwMTViNmRjOTgiLCJpYXQiOjE2MjkyODgxMjAsImV4cCI6MTYzMDQ5NzcyMH0.XfRUnn6BFJPPRnEwvnQnjrk0oaXPSwwKyJlEGV6Wn9k"
-        })
+        headers
     })
     if (response.ok) {
         // everything went well
@@ -84,10 +82,7 @@ const deleteProduct = async () => {
     try {
         const response = await fetch(endpoint, {
             method: "DELETE",
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTFjZjZiODJkNTI2MjAwMTViNmRjOTgiLCJpYXQiOjE2MjkyODgxMjAsImV4cCI6MTYzMDQ5NzcyMH0.XfRUnn6BFJPPRnEwvnQnjrk0oaXPSwwKyJlEGV6Wn9k"
-            })
+            headers
         })
         if (response.ok) {
             const deletedObj = await response.json()
